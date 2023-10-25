@@ -1,0 +1,20 @@
+<body>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput formControlName="email" type="email" placeholder="correo@example.com">
+      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">El correo electrónico es obligatorio</mat-error>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Correo electrónico no válido</mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="password" type="password" placeholder="Contraseña">
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">La contraseña es obligatoria</mat-error>
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">Iniciar sesión</button>
+  </form>
+  
+  <button mat-raised-button (click)="onButtonClick()" color="primary">Login with google</button>
+</body>
