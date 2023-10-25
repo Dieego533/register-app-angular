@@ -34,14 +34,16 @@ export class RegisterComponent implements OnInit {
       const name = this.registerForm.value.name; 
       const rut = this.registerForm.value.rut;
       const email = this.registerForm.value.email;
-      const pass = this.registerForm.value.password;
+      const password = this.registerForm.value.password;
+
   
-      const credentials : UsersData = { name, rut , email, pass };
+      const credentials : UsersData = { name, rut , email, password };
+      console.log(credentials);
   
       this.userService.register(credentials)
         .then(response => {
           console.log(response);
-          this.router.navigate(['/login']);
+          this.router.navigate(['/main']);
         })
         .catch(error => console.log(error));
     }

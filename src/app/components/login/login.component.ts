@@ -21,23 +21,28 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    // if (this.loginForm.valid) {
-    //   const email = this.loginForm.value.email;
-    //   const password = this.loginForm.value.password;
-    //   const credentials = { email , password }
-    //   this.userService.login(credentials).then(res =>{
-    //     this.router.navigate(['/main']);  
-    //     console.log(res)
-    //   }
-    //   ).catch(error => console.log(error))
-    // }
+    if (this.loginForm.valid) {
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+      const credentials = { email , password }
+      console.log(credentials);
+      this.userService.login(credentials).then(res =>{
+        this.router.navigate(['/main']);  
+        console.log(res)
+      }
+      ).catch(error => console.log(error))
+    }
   }
 
   onButtonClick() {
-    // this.userService.loginWithGoogle().then(res =>{
-    //   this.router.navigate(['/main']);  
-    //     console.log(res)
-    // }).catch(error => console.log(error))
+    this.userService.loginWithGoogle().then(res =>{
+      this.router.navigate(['/main']);  
+        console.log(res)
+    }).catch(error => console.log(error))
+  }
+
+  onClickRegister(){
+    this.router.navigate(['/register']);
   }
 }
   

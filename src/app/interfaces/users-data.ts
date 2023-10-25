@@ -1,7 +1,7 @@
 export interface UsersData {
   id?: string;
   name: string;
-  rut: number;
+  rut: string;
   email: string;
-  pass: any;
+  password: any;
 }

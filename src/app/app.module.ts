@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { MatTableDataSource } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
-    provideFirestore(() => getFirestore())
+    MatTableDataSource,
+    provideFirestore(() => getFirestore()),
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
