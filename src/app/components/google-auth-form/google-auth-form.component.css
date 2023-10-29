@@ -1,22 +1,12 @@
-
-
-.register-container {
+.update-google-container {
   background-color: #476792;
-  margin: 0;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-.register-input {
-  width: 100%;
-  margin: 10px 0; /* Espacio entre los campos de entrada */
-}
-
-
-.register-box {
+.update-box {
   display: flex;
   max-width: 400px;
   padding: 16px;
@@ -24,27 +14,36 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
-  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.titleDiv {
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.formDiv {
+  display: flex;
+}
 
+.formDiv button{
+  width: 100%; /* Asegura que el botón ocupe todo el ancho del contenedor */
+  text-align: center; /* Centra el texto (botón) horizontalmente */
+  margin-top: 10px; /* Agrega un margen superior para separarlo del campo de texto */
+}
 
 h1 {
   font-size: 24px;
   margin-bottom: 16px;
 }
 
+mat-form-field {
+  width: 100%;
+}
 
-
-.buttonSubmit {
+.mat-raised-button {
   width: 70%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-  margin-top: 25px;
 }
 
 /* Color de los textboxes */
@@ -69,35 +68,17 @@ h1 {
   background-color: #476792;
 }
 
-.arrowClass{
-  color: black;
 
-  
-}
-.titleDiv {
-  display: flex;
-  justify-content: space-between; /* Coloca el botón y el título en los extremos */
-  align-items: center; /* Centra verticalmente los elementos */
-  width: 50%;
-
-}
-
-.buttonBack{
-  display: flex;
-}
-
-:host ::ng-deep .mat-mdc-form-field-hint-wrapper, .mat-mdc-form-field-error-wrapper {
-  background-color: red !important;
-}
-
-
-
-
-/* Estilos para dispositivos móviles */
+/* Estilos para dispositivos móviles (puedes ajustarlos según sea necesario) */
 @media screen and (max-width: 767px) {
+
   .register-box {
     max-width: 80%;
-    margin: 20px;
+    margin: 20px auto
+  }
+
+  .update-box{
+    width: 80%;
   }
 
   .titleDiv h1 {
@@ -105,16 +86,7 @@ h1 {
     margin-bottom: 12px;
   }
 
-  .register-input {
-    width: 100%;
-  margin: 10px 0;
-  }
-
   .mat-raised-button {
     margin-bottom: 10px;
-  }
-
-  .buttonSubmit {
-    width: 100%;
   }
 }

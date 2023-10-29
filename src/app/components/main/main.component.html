@@ -1,4 +1,7 @@
 <body>
+  <div class="modal" *ngIf="showSpinner">
+    <mat-progress-spinner mode="indeterminate" color="primary" [diameter]="50"></mat-progress-spinner>
+  </div>
     <!-- user-list.component.html -->
   <mat-toolbar class="navbar" color="primary">
     <span>Hola, {{ userData?.name }}</span>

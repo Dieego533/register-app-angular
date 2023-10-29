@@ -1,10 +1,13 @@
 <body>
+  <div class="modal" *ngIf="showSpinner">
+    <mat-progress-spinner mode="indeterminate" color="primary" [diameter]="50"></mat-progress-spinner>
+  </div>
   <div class="login-container">
     <div class="login-box">
       <div class="titleDiv">
         <h1>Inicia sesión</h1>
       </div>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="login-input">
           <mat-label class="inputLabel">Correo electrónico</mat-label>
           <input  matInput formControlName="email" type="email" placeholder="correo@example.com" color="primary">

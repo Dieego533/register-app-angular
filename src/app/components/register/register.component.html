@@ -12,25 +12,36 @@
         </div>
       </div>
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <mat-form-field class="register-input">
+        <mat-form-field class="register-input" >
           <mat-label>Nombre</mat-label>
           <input matInput formControlName="name">
+          <mat-error *ngIf="registerForm.get('name')?.hasError('required')">El nombre es obligatorio</mat-error>
+          <mat-error *ngIf="registerForm.get('name')?.hasError('pattern')">El nombre solo debe contener letras y espacios</mat-error>       
         </mat-form-field>
 
         <mat-form-field class="register-input">
-          <mat-label>Rut</mat-label>
+          <mat-label>Rut solo con guión</mat-label>
           <input matInput formControlName="rut">
+          <mat-error *ngIf="registerForm.get('rut')?.hasError('required')">El RUT es obligatorio</mat-error>
+          <mat-error *ngIf="registerForm.get('rut')?.hasError('pattern')">El formato del RUT no es válido.</mat-error>
+        
         </mat-form-field>
 
         <mat-form-field class="register-input">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email">
+          <mat-error *ngIf="registerForm.get('email')?.hasError('required')">El correo electrónico es obligatorio</mat-error>
+          <mat-error *ngIf="registerForm.get('email')?.hasError('email')">El formato del correo electrónico es inválido</mat-error>
         </mat-form-field>
 
-        <mat-form-field class="register-input">
+        <mat-form-field class="register-input" subscriptSizing="dynamic">
           <mat-label>Contraseña</mat-label>
           <input matInput type="password" formControlName="password">
+          <mat-error *ngIf="registerForm.get('password')?.hasError('required')">La contraseña es obligatoria</mat-error>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">La contraseña debe tener al menos 8 caracteres</mat-error>
+          <mat-error *ngIf="registerForm.get('password')?.hasError('pattern')">La contraseña debe contener al menos una letra mayúscula</mat-error>
         </mat-form-field>
+
 
         <button mat-raised-button color="primary" class="buttonSubmit" type="submit">Registrarse</button>
       </form>

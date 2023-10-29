@@ -18,16 +18,24 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { GoogleAuthFormComponent } from './components/google-auth-form/google-auth-form.component';
+import { ToastrModule } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    MainComponent
+    MainComponent,
+    GoogleAuthFormComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
@@ -40,7 +48,14 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatToolbarModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    ToastrModule.forRoot({
+      timeOut: 3000, // Controla el tiempo de visualización de las notificaciones
+      positionClass: 'toast-top-right', // Configura la posición de las notificaciones
+      preventDuplicates: true, // Evita mostrar notificaciones duplicadas
+    }),
+    MatProgressSpinnerModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { UsersData } from 'src/app/interfaces/users-data';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-main',
@@ -14,8 +15,9 @@ export class MainComponent implements OnInit {
   userData : any;
   users: UsersData[] = [];
   displayedColumns: string[] = ['id', 'name', 'rut', 'email', 'password'];
+  showSpinner: boolean = true;
 
-  constructor(private userService : UserService, private router : Router) {
+  constructor(private userService : UserService, private router : Router, private toastr: ToastrService) {
     this.userData = {}
   }
 
@@ -39,29 +41,28 @@ export class MainComponent implements OnInit {
           }
         } catch (error) {
           console.error("Error al obtener los datos del usuario:", error);
+          this.toastr.error('', 'Error al obtener los datos del usuario');
         }
       } else {
-        // El usuario no está autenticado.
+        this.toastr.error('', 'Ocurrió un error al cargar los datos del usuario');
       }
     }
 
     async getUsers() {
       // Obtener la lista de usuarios registrados
       this.users = await this.userService.getUsers();
+      this.showSpinner = false;
+      
     }
 
-    onButtonClick() {
-      console.log(this.userData);
-      // Aquí puedes agregar la lógica que deseas ejecutar cuando se hace clic en el botón.
-      this.userService.logout().then((res: any) => {
-        console.log(res);
-        this.router.navigate(['/login']);
-      }).catch((err: any) => console.log(err));
-    }
 
     onLogout(){
       this.userService.logout().then((res) => {
+        this.toastr.success('', 'Sesión Cerrada', {
+          timeOut: 3000,
+        });
         this.router.navigate(['/login']);
+        
       })
     }
   

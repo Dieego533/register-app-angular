@@ -1,0 +1,20 @@
+<div class="update-google-container">
+  <div class="update-box">
+    <div class="titleDiv">
+      <h1>Completa tu registro</h1>
+    </div>
+    <div class="formDiv">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Rut</mat-label>
+          <input matInput formControlName="rut">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Completar Registro</button>
+      </form>
+    </div>
+  </div>
+</div>

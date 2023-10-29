@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import  { UsersData }  from '../../interfaces/users-data';
-
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -18,12 +18,13 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private fb: FormBuilder,
+    private toastr: ToastrService
   ) {
     this.registerForm = this.fb.group({
-      name:['' , Validators.required],
-      rut:['' , Validators.required],
-      email: ['' , Validators.required],
-      password:['',Validators.required],
+      name:['' , [Validators.required, Validators.pattern(/^[A-Za-zÁ-Úá-ú\s]+$/)]],
+      rut:['' , [Validators.required, Validators.pattern(/^\d{7,8}-[\dkK]$/)]],
+      email: ['' , [Validators.required, Validators.email]],
+      password:['',[Validators.required, Validators.minLength(8), Validators.pattern(/[A-Z]/)]],
     })
 
 
@@ -35,7 +36,8 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if (this.registerForm.valid) {
       const name = this.registerForm.value.name; 
-      const rut = this.registerForm.value.rut;
+      const rutBruto = this.registerForm.value.rut;
+      const rut = rutBruto.replace('-', '');
       const email = this.registerForm.value.email;
       const password = this.registerForm.value.password;
 
@@ -46,9 +48,16 @@ export class RegisterComponent implements OnInit {
       this.userService.register(credentials)
         .then(response => {
           console.log(response);
+          this.toastr.success('Registro Exitoso!', 'Éxito');
           this.router.navigate(['/main']);
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          this.toastr.error('', 'No se pudo completar el registro');
+          console.log(error);
+        });
+    }else{
+      console.log("Hay un problema con el formulario");
+      this.toastr.error('', 'Hay un error en el formulario');
     }
   }
 

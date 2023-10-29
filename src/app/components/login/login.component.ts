@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -12,8 +13,10 @@ import { Router } from '@angular/router';
 
 export class LoginComponent {
   loginForm : FormGroup;
+  showSpinner: boolean = false;
 
-  constructor(private fb: FormBuilder, private userService : UserService , private router : Router) {
+
+  constructor(private fb: FormBuilder, private userService : UserService , private router : Router, private toastr: ToastrService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -26,17 +29,25 @@ export class LoginComponent {
       const password = this.loginForm.value.password;
       const credentials = { email , password }
       console.log(credentials);
+      this.showSpinner = true;
       this.userService.login(credentials).then(res =>{
+        this.toastr.success('', 'Sesión Iniciada', {
+          timeOut: 3000,
+        });
         this.router.navigate(['/main']);  
         console.log(res)
+        this.showSpinner = false;
       }
-      ).catch(error => console.log(error))
+      ).catch(error => {
+        this.toastr.error('', 'Usuario y/o Contraseña inválidos');
+        console.log(error);
+        this.showSpinner = false;
+      })
     }
   }
 
   onButtonClick() {
-    this.userService.loginWithGoogle().then(res =>{
-      this.router.navigate(['/main']);  
+    this.userService.loginWithGoogle().then(res =>{ 
         console.log(res)
     }).catch(error => console.log(error))
   }
