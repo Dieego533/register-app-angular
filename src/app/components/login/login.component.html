@@ -1,11 +1,13 @@
 <body>
   <div class="login-container">
     <div class="login-box">
-      <h1>Inicia sesión</h1>
+      <div class="titleDiv">
+        <h1>Inicia sesión</h1>
+      </div>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="login-input">
-          <mat-label>Correo electrónico</mat-label>
-          <input matInput formControlName="email" type="email" placeholder="correo@example.com">
+          <mat-label class="inputLabel">Correo electrónico</mat-label>
+          <input  matInput formControlName="email" type="email" placeholder="correo@example.com" color="primary">
           <mat-error *ngIf="loginForm.get('email')?.hasError('required')">El correo electrónico es obligatorio</mat-error>
           <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Correo electrónico no válido</mat-error>
         </mat-form-field>
@@ -16,12 +18,25 @@
           <mat-error *ngIf="loginForm.get('password')?.hasError('required')">La contraseña es obligatoria</mat-error>
         </mat-form-field>
   
-        <button mat-raised-button color="primary" type="submit">Iniciar sesión</button>
+        <button mat-raised-button color="primary" class="buttonSubmit" type="submit">Iniciar sesión</button>
+
+        <button class="buttonGoogle" mat-raised-button color="primary" (click)="onButtonClick()">
+          <img src="assets/icons/google.png" alt="Google Icon" class="google-icon">
+          <span class="button-text-google">Inicia sesión con Google</span>
+        </button>
+
+
+
       </form>
+
+      
+
+
+
   
-      <button mat-raised-button (click)="onClickRegister()" color="primary">Regístrate</button>
-  
-      <button mat-raised-button (click)="onButtonClick()" color="primary">Login with Google</button>
+      <div class="signUpButtons">
+        <button mat-raised-button (click)="onClickRegister()" color="primary">Regístrate</button>
+      </div>
     </div>
   </div> 
 </body>

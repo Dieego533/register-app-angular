@@ -6,6 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import  { UsersData }  from '../../interfaces/users-data';
 
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -24,6 +25,8 @@ export class RegisterComponent implements OnInit {
       email: ['' , Validators.required],
       password:['',Validators.required],
     })
+
+
   }
 
   ngOnInit(): void {
@@ -47,6 +50,11 @@ export class RegisterComponent implements OnInit {
         })
         .catch(error => console.log(error));
     }
+  }
+
+  goBack() {
+    // Redirige a la página anterior (por ejemplo, la página de inicio de sesión)
+    this.router.navigate(['/login']);
   }
 
 }

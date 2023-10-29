@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class MainComponent implements OnInit {
   userId: string | null = "";
   userData : any;
+  users: UsersData[] = [];
   displayedColumns: string[] = ['id', 'name', 'rut', 'email', 'password'];
 
   constructor(private userService : UserService, private router : Router) {
@@ -20,6 +21,7 @@ export class MainComponent implements OnInit {
 
     async ngOnInit() {
       this.getDataUser();
+      this.getUsers();
     }
 
     async getDataUser(){
@@ -43,6 +45,11 @@ export class MainComponent implements OnInit {
       }
     }
 
+    async getUsers() {
+      // Obtener la lista de usuarios registrados
+      this.users = await this.userService.getUsers();
+    }
+
     onButtonClick() {
       console.log(this.userData);
       // Aquí puedes agregar la lógica que deseas ejecutar cuando se hace clic en el botón.
@@ -50,6 +57,12 @@ export class MainComponent implements OnInit {
         console.log(res);
         this.router.navigate(['/login']);
       }).catch((err: any) => console.log(err));
+    }
+
+    onLogout(){
+      this.userService.logout().then((res) => {
+        this.router.navigate(['/login']);
+      })
     }
   
   }

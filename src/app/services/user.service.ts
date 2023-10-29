@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth , createUserWithEmailAndPassword, signInWithEmailAndPassword , signOut, 
   signInWithPopup, GoogleAuthProvider, onAuthStateChanged, UserCredential, getAuth   } from '@angular/fire/auth';
-import { Firestore , collection, addDoc , setDoc, doc , getDoc } from '@angular/fire/firestore';
+import { Firestore , collection, addDoc , setDoc, doc , getDoc , query ,  getDocs } from '@angular/fire/firestore';
 import { UsersData } from '../interfaces/users-data';
 
 @Injectable({
@@ -67,7 +67,20 @@ export class UserService {
     }
   }
 
- 
+  async getUsers(): Promise<UsersData[]> {
+    const usersCollection = collection(this.firestore, 'users');
+    const usersQuery = query(usersCollection);
+
+    const userSnapshots = await getDocs(usersQuery);
+
+    return userSnapshots.docs.map((doc) => {
+      const user = doc.data() as UsersData;
+      user.id = doc.id;
+      return user;
+    });
+  }
+
+
 
   login({email , password}:any){
     return signInWithEmailAndPassword(this.auth, email, password);

@@ -1,23 +1,39 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <mat-label>Nombre</mat-label>
-    <input matInput formControlName="name">
-  </mat-form-field>
+<body>
+  <div class="register-container">
+    <div class="register-box">
+      <div class="titleDiv">
+        <div class="buttonBack">
+          <button mat-raised-button color="primary" (click)="goBack()">
+            <mat-icon class="arrowClass" >arrow_back</mat-icon>
+          </button>
+        </div>
+        <div class="Titulo">
+          <h1>Registro</h1>
+        </div>
+      </div>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="register-input">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Rut</mat-label>
-    <input matInput formControlName="rut">
-  </mat-form-field>
+        <mat-form-field class="register-input">
+          <mat-label>Rut</mat-label>
+          <input matInput formControlName="rut">
+        </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input matInput formControlName="email">
-  </mat-form-field>
+        <mat-form-field class="register-input">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Contraseña</mat-label>
-    <input matInput type="password" formControlName="password">
-  </mat-form-field>
+        <mat-form-field class="register-input">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password">
+        </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit">Iniciar sesión</button>
-</form>
+        <button mat-raised-button color="primary" class="buttonSubmit" type="submit">Registrarse</button>
+      </form>
+    </div>
+  </div>
+</body>

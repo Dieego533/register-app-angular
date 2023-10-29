@@ -1,33 +1,49 @@
-<!-- user-list.component.html -->
-<mat-toolbar color="primary">
-  <span>Hola, {{ userData?.name }}</span>
-</mat-toolbar>
+<body>
+    <!-- user-list.component.html -->
+  <mat-toolbar class="navbar" color="primary">
+    <span>Hola, {{ userData?.name }}</span>
+    <div class="logOutButton">
+      <button mat-button (click)="onLogout()"> <mat-icon>exit_to_app</mat-icon>Cerrar sesión</button> 
+    </div>
+  </mat-toolbar>
 
-<div class="user-table">
-  <mat-table [dataSource]="users">
-    <!-- Columnas de la tabla -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.id }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.name }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="rut">
-      <mat-header-cell *matHeaderCellDef>RUT</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.rut }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef>Correo Electrónico</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="password">
-      <mat-header-cell *matHeaderCellDef>Contraseña</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.password }}</mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-</div>
+  <div class="margin-container">
+    <div class="content-container">
+      <div>
+        <h2>Usuarios Registrados</h2>
+      </div>
+      <div class="content-card">
+        <mat-card>
+          <div class="table-container">
+            <table mat-table  class="custom-table" [dataSource]="users">
+              <!-- Columnas de la tabla -->
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef >ID</mat-header-cell>
+                <mat-cell  *matCellDef="let user">{{ user.id }}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{ user.name }}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="rut">
+                <mat-header-cell *matHeaderCellDef>RUT</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{ user.rut }}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef>Correo Electrónico</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="password">
+                <mat-header-cell *matHeaderCellDef>Contraseña</mat-header-cell>
+                <mat-cell *matCellDef="let user">{{ user.password }}</mat-cell>
+              </ng-container>
+            
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </table>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</body>
