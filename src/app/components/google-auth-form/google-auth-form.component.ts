@@ -14,8 +14,8 @@ export class GoogleAuthFormComponent {
   registrationForm: FormGroup;
   constructor(private fb: FormBuilder, private userService: UserService , private router: Router, private toastr: ToastrService) {
     this.registrationForm = this.fb.group({
-      name: ['', Validators.required],
-      rut: ['', Validators.required]
+      name:['' , [Validators.required, Validators.pattern(/^[A-Za-zÁ-Úá-ú\s]+$/)]], //Solo letras y espacios en blanco.
+      rut:['' , [Validators.required, Validators.pattern(/^\d{7,8}-[\dkK]$/)]], //Formato de rut con guión.
     });
   }
 

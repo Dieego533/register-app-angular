@@ -21,13 +21,11 @@ export class RegisterComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.registerForm = this.fb.group({
-      name:['' , [Validators.required, Validators.pattern(/^[A-Za-zÁ-Úá-ú\s]+$/)]],
-      rut:['' , [Validators.required, Validators.pattern(/^\d{7,8}-[\dkK]$/)]],
-      email: ['' , [Validators.required, Validators.email]],
-      password:['',[Validators.required, Validators.minLength(8), Validators.pattern(/[A-Z]/)]],
+      name:['' , [Validators.required, Validators.pattern(/^[A-Za-zÁ-Úá-ú\s]+$/)]], //Solo letras y espacios en blanco.
+      rut:['' , [Validators.required, Validators.pattern(/^\d{7,8}-[\dkK]$/)]], //Formato de rut con guión.
+      email: ['' , [Validators.required, Validators.email]], //Formato de Email de angular.
+      password:['',[Validators.required, Validators.minLength(8), Validators.pattern(/[A-Z]/)]],//8 Caracteres minimos y una mayúscula.
     })
-
-
   }
 
   ngOnInit(): void {
@@ -52,17 +50,16 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/main']);
         })
         .catch(error => {
-          this.toastr.error('', 'No se pudo completar el registro');
+          // this.toastr.error('', 'No se pudo completar el registro');
           console.log(error);
         });
     }else{
       console.log("Hay un problema con el formulario");
-      this.toastr.error('', 'Hay un error en el formulario');
+      //this.toastr.error('', 'Hay un error en el formulario');
     }
   }
 
   goBack() {
-    // Redirige a la página anterior (por ejemplo, la página de inicio de sesión)
     this.router.navigate(['/login']);
   }
 

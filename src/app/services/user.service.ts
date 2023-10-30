@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth , createUserWithEmailAndPassword, signInWithEmailAndPassword , signOut, 
-  signInWithPopup, GoogleAuthProvider, onAuthStateChanged, UserCredential, getAuth } from '@angular/fire/auth';
-import { Firestore , collection, addDoc , setDoc, doc , getDoc , query ,  getDocs, updateDoc } from '@angular/fire/firestore';
+  signInWithPopup, GoogleAuthProvider, onAuthStateChanged} from '@angular/fire/auth';
+import { Firestore , collection , setDoc, doc , getDoc , query ,  getDocs, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { UsersData } from '../interfaces/users-data';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -14,10 +14,16 @@ import { ToastrService } from 'ngx-toastr';
 export class UserService {
   private userId: string | null = null;
 
-  constructor( private router : Router , private auth : Auth , private firestore: Firestore, private toastr: ToastrService) { 
+  constructor( 
+    private router : Router, 
+    private auth : Auth, 
+    private firestore: Firestore,
+    private toastr: ToastrService) 
+  { 
     this.initAuthState();
   }
 
+  //Estado de autenticación para mantener actualizado userId
   private initAuthState() {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
@@ -47,14 +53,42 @@ export class UserService {
         rut: rut,
         password: password
       });
+      localStorage.setItem('userId',userCredential.user.uid);
       return 'Registro exitoso';
-    } catch (error) {
+    } catch (error : any) {
+      //Manejo de errores de firebase
+      if (error.code == "auth/email-already-in-use") {
+        this.toastr.error('', 'El Email ya se encuentra registrado');
+      } else if (error.code == "auth/invalid-email") {
+        this.toastr.error('', 'El Email no es válido');
+      } else if (error.code == "auth/operation-not-allowed") {
+        this.toastr.error('', 'Operación no permitida');
+      } else if (error.code == "auth/weak-password") {
+        this.toastr.error('', 'La contraseña no es válida');
+      }
+
       console.log(error);
       throw error;
-      
     }
   }
 
+  
+  login({email , password}:any){
+    return signInWithEmailAndPassword(this.auth, email, password).then((userCredential) =>{
+      localStorage.clear();
+      const user = userCredential.user;
+      localStorage.setItem('userId',user.uid);
+    });
+  }
+
+  logout(){
+    return signOut(this.auth).then(() =>{
+      localStorage.clear();
+    });
+  }
+
+
+  //Login con el botón de Google
   async loginWithGoogle(){
   try {
     const userCredential = await signInWithPopup(this.auth, new GoogleAuthProvider());
@@ -77,26 +111,25 @@ export class UserService {
         console.log(userId);
         
       }else{
+        const userId = localStorage.setItem('userId',user.uid);
         this.router.navigate(['/main']);
       }
     } catch (error) {
       console.error('Error al iniciar sesión con Google:', error);
+      this.toastr.error('Error al iniciar sesión con Google', 'Error');
     }
   }
 
+  //Actualizar los datos del usuario de Google
   updateGoogleUser({ name, rut }: any) {
     return new Promise((resolve, reject) => {
       const userId = localStorage.getItem('userId');
       if (userId) {
         const userRef = doc(this.firestore, 'users', userId);
-  
-        // Aquí defines los campos que deseas actualizar
         const updatedData = {
           name: name,
           rut: rut,
-          // Agrega todos los campos que necesitas actualizar
         };
-  
         // Realiza la actualización en Firestore
         updateDoc(userRef, updatedData)
           .then(() => {
@@ -105,71 +138,71 @@ export class UserService {
           })
           .catch(error => {
             console.error('Error al actualizar el usuario:', error);
+            this.toastr.error('Error al actualizar el usuario', 'Error');
             reject(error);
           });
       } else {
         const error = 'El ID del usuario no está en el localStorage. Asegúrate de que el usuario haya iniciado sesión con Google.';
+        this.toastr.error('Error en el registro con Google', 'Error');
         console.error(error);
         reject(error);
       }
     });
   }
   
-
+  //Para obtener información del usuario autenticado.
   async getUserData(userId: string) {
     const userRef = doc(this.firestore, 'users', userId);
     const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
       const userData = userDoc.data();
-      // userData contiene los datos del usuario (nombre, rut, correo electrónico, etc.).
-      // Puedes hacer lo que necesites con estos datos.
       return userData;
     } else {
       console.log("El usuario no tiene datos en firestore")
-      // El usuario no tiene datos en Firestore.
+      this.toastr.error('El usuario no tiene datos en firestore', 'Error');
       return null;
     }
   }
 
+  //Para obtener todos los usuarios registrados
   async getUsers(): Promise<UsersData[]> {
     const usersCollection = collection(this.firestore, 'users');
     const usersQuery = query(usersCollection);
-
-    const userSnapshots = await getDocs(usersQuery);
-
-    return userSnapshots.docs.map((doc) => {
+    //Hago la lectura en Firestore
+    const usersCollectionData = await getDocs(usersQuery);
+    //Mapeo a objetos UsersData y se almacenan en un arreglo.
+    return usersCollectionData.docs.map((doc) => {
       const user = doc.data() as UsersData;
       user.id = doc.id;
       return user;
     });
   }
 
-  async checkUserData(userId: string): Promise<boolean> {
-    const userRef = doc(this.firestore, 'users', userId);
-    const userDoc = await getDoc(userRef);
+  async deleteUser(userId : string){
+    const localStorageUserId = localStorage.getItem('userId');
+    try {
+      //Elimino de Firestore
+      const userDocRef = doc(this.firestore , 'users' , userId);
+      await deleteDoc(userDocRef);
 
-    return userDoc.exists();
+      if(userId === localStorageUserId){
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      console.error('Error al eliminar la cuenta:', error);
+      this.toastr.error('Error al eliminar la cuenta', 'Error');
+    }
   }
-
-
-
-  login({email , password}:any){
-    return signInWithEmailAndPassword(this.auth, email, password);
-  }
-
-  logout(){
-    return signOut(this.auth);
-  }
-
- 
-
 }
 
 
-  
 
 
- 
+
+
+
+
+
 
 
 

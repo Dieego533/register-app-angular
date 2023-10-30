@@ -1,5 +1,4 @@
 body{
-  
   background-color: #476792;
   margin: 0;
   padding: 0;
@@ -9,24 +8,74 @@ body{
   height: 100vh;
 }
 
-.login-input[_ngcontent-ng-c1196853107]{
-  margin: 0;
-  
+.login-container {
+  text-align: center;
 }
 
+.login-box {
+  display: flex;
+  max-width: 400px;
+  padding: 16px;
+  background-color: #edebe6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+
+.titleDiv{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+h1{
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+
+.login-input {
+  width: 100%;
+}
 
 .mat-raised-button{
   margin-bottom: 100px;
   
 }
 
-.login-container {
-  text-align: center;
-}
-
 .mat-mdc-raised-button.mat-primary {
   margin : 10px
 }
+
+.buttonSubmit{
+  width: 70%;
+}
+
+
+.buttonGoogle{
+  width: 70%;
+}
+
+.google-icon {
+  width: 20px; 
+  height: 20px; 
+  margin-right: 8px; 
+}
+
+.button-text-google{
+  vertical-align: super;
+}
+
+.signUpButtons{
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+
 
 /* Color de los textboxes */
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
@@ -51,70 +100,18 @@ body{
 }
 
 
-.login-box {
-  display: flex;
-  max-width: 400px;
-  padding: 16px;
-  background-color: #edebe6;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  justify-content: flex-end;
-  flex-direction: column;
-}
-
-
-.login-input {
-  width: 100%;
-}
-
-.titleDiv{
-  display: flex;
-  flex-direction: column;
-}
-
-h1{
-  font-size: 24px;
-  margin-bottom: 16px;
-}
-
-.signUpButtons{
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-.buttonSubmit{
-  width: 70%;
-}
-
-.buttonGoogle{
-  width: 70%;
-}
-
-.google-icon {
-  width: 20px; /* Ajusta el ancho según tus necesidades */
-  height: 20px; /* Ajusta el alto según tus necesidades */
-  margin-right: 8px; /* Agrega un margen a la derecha del icono */
-}
-
-.button-text-google{
-  vertical-align: super;
-}
-
-
 
 /* Estilos para dispositivos móviles */
 @media screen and (max-width: 767px) {
 
   
   .login-box {
-    max-width: 80%; /* Reducir el ancho del contenedor en dispositivos móviles */
+    max-width: 80%; 
     margin: 20px;
   }
 
   .titleDiv h1 {
-    font-size: 20px; /* Reducir el tamaño de fuente para dispositivos móviles */
+    font-size: 20px; 
     margin-bottom: 12px;
   }
 
@@ -139,11 +136,6 @@ h1{
   .button-text-google{
     vertical-align: super;
   }
-
-
-  
-  
-
 
 }
 

@@ -16,7 +16,10 @@ export class LoginComponent {
   showSpinner: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private userService : UserService , private router : Router, private toastr: ToastrService) {
+  constructor(private fb: FormBuilder, 
+    private userService : UserService, 
+    private router : Router, 
+    private toastr: ToastrService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -46,7 +49,7 @@ export class LoginComponent {
     }
   }
 
-  onButtonClick() {
+  googleloginButton() {
     this.userService.loginWithGoogle().then(res =>{ 
         console.log(res)
     }).catch(error => console.log(error))

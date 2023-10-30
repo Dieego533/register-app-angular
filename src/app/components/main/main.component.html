@@ -1,22 +1,25 @@
+
 <body>
   <div class="modal" *ngIf="showSpinner">
     <mat-progress-spinner mode="indeterminate" color="primary" [diameter]="50"></mat-progress-spinner>
   </div>
-    <!-- user-list.component.html -->
+    <!-- Inicio del navbar -->
   <mat-toolbar class="navbar" color="primary">
     <span>Hola, {{ userData?.name }}</span>
     <div class="logOutButton">
       <button mat-button (click)="onLogout()"> <mat-icon>exit_to_app</mat-icon>Cerrar sesión</button> 
     </div>
   </mat-toolbar>
-
+  <!-- Contenedor Márgen -->
   <div class="margin-container">
+    <!-- Contenedor Principal -->
     <div class="content-container">
       <div>
         <h2>Usuarios Registrados</h2>
       </div>
       <div class="content-card">
         <mat-card>
+          <!-- Comienza la tabla -->
           <div class="table-container">
             <table mat-table  class="custom-table" [dataSource]="users">
               <!-- Columnas de la tabla -->
@@ -40,11 +43,20 @@
                 <mat-header-cell *matHeaderCellDef>Contraseña</mat-header-cell>
                 <mat-cell *matCellDef="let user">{{ user.password }}</mat-cell>
               </ng-container>
-            
+              <ng-container matColumnDef="delete" >
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let user">
+                  <button mat-icon-button color="warn" (click)="deleteUser(user)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+              <!-- Fin Columnas de la tabla -->
               <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
             </table>
           </div>
+          <!-- Fin de la tabla -->
         </mat-card>
       </div>
     </div>

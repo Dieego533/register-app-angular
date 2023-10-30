@@ -23,23 +23,24 @@
   align-items: center;
 }
 
-.formDiv {
-  display: flex;
-}
-
-.formDiv button{
-  width: 100%; /* Asegura que el botón ocupe todo el ancho del contenedor */
-  text-align: center; /* Centra el texto (botón) horizontalmente */
-  margin-top: 10px; /* Agrega un margen superior para separarlo del campo de texto */
-}
-
 h1 {
   font-size: 24px;
   margin-bottom: 16px;
 }
 
+.formDiv {
+  display: flex;
+}
+
 mat-form-field {
   width: 100%;
+}
+
+
+.formDiv button{
+  width: 100%; 
+  text-align: center; 
+  margin-top: 10px; 
 }
 
 .mat-raised-button {
@@ -69,7 +70,7 @@ mat-form-field {
 }
 
 
-/* Estilos para dispositivos móviles (puedes ajustarlos según sea necesario) */
+/* Estilos para dispositivos móviles */
 @media screen and (max-width: 767px) {
 
   .register-box {

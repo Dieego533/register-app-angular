@@ -11,6 +11,7 @@
           <h1>Registro</h1>
         </div>
       </div>
+      <!-- Inicio del form -->
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="register-input" >
           <mat-label>Nombre</mat-label>
@@ -24,7 +25,6 @@
           <input matInput formControlName="rut">
           <mat-error *ngIf="registerForm.get('rut')?.hasError('required')">El RUT es obligatorio</mat-error>
           <mat-error *ngIf="registerForm.get('rut')?.hasError('pattern')">El formato del RUT no es válido.</mat-error>
-        
         </mat-form-field>
 
         <mat-form-field class="register-input">
@@ -42,9 +42,9 @@
           <mat-error *ngIf="registerForm.get('password')?.hasError('pattern')">La contraseña debe contener al menos una letra mayúscula</mat-error>
         </mat-form-field>
 
-
-        <button mat-raised-button color="primary" class="buttonSubmit" type="submit">Registrarse</button>
+        <button mat-raised-button color="primary" class="buttonSubmit" type="submit" [disabled]="registerForm.invalid" >Registrarse</button>
       </form>
+      <!-- Fin del form -->
     </div>
   </div>
 </body>

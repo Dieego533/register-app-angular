@@ -22,7 +22,6 @@ import { GoogleAuthFormComponent } from './components/google-auth-form/google-au
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -50,9 +49,9 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     MatCardModule,
     MatIconModule,
     ToastrModule.forRoot({
-      timeOut: 3000, // Controla el tiempo de visualización de las notificaciones
-      positionClass: 'toast-top-right', // Configura la posición de las notificaciones
-      preventDuplicates: true, // Evita mostrar notificaciones duplicadas
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
     }),
     MatProgressSpinnerModule
 

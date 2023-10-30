@@ -8,12 +8,16 @@
         <mat-form-field>
           <mat-label>Nombre</mat-label>
           <input matInput formControlName="name">
+          <mat-error *ngIf="registrationForm.get('name')?.hasError('required')">El nombre es obligatorio</mat-error>
+          <mat-error *ngIf="registrationForm.get('name')?.hasError('pattern')">El nombre solo debe contener letras y espacios</mat-error>   
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Rut</mat-label>
+          <mat-label>Rut con guión</mat-label>
           <input matInput formControlName="rut">
+          <mat-error *ngIf="registrationForm.get('rut')?.hasError('required')">El RUT es obligatorio</mat-error>
+          <mat-error *ngIf="registrationForm.get('rut')?.hasError('pattern')">El formato del RUT no es válido.</mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Completar Registro</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid" >Completar Registro</button>
       </form>
     </div>
   </div>

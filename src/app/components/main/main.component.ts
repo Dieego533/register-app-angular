@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { UsersData } from 'src/app/interfaces/users-data';
-import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -14,7 +13,7 @@ export class MainComponent implements OnInit {
   userId: string | null = "";
   userData : any;
   users: UsersData[] = [];
-  displayedColumns: string[] = ['id', 'name', 'rut', 'email', 'password'];
+  displayedColumns: string[] = ['id', 'name', 'rut', 'email', 'password', 'delete'];
   showSpinner: boolean = true;
 
   constructor(private userService : UserService, private router : Router, private toastr: ToastrService) {
@@ -30,7 +29,7 @@ export class MainComponent implements OnInit {
       this.userId = this.userService.getUserId();
       if (this.userId) {
         try {
-          // El usuario está autenticado, obtén sus datos
+          // Obtener datos del usuario que inició sesión
           this.userData = await this.userService.getUserData(this.userId);
           if (this.userData) {
             // Los datos del usuario se cargaron con éxito
@@ -52,7 +51,6 @@ export class MainComponent implements OnInit {
       // Obtener la lista de usuarios registrados
       this.users = await this.userService.getUsers();
       this.showSpinner = false;
-      
     }
 
 
@@ -64,6 +62,21 @@ export class MainComponent implements OnInit {
         this.router.navigate(['/login']);
         
       })
+    }
+
+    deleteUser(user: any) {
+      if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+        
+        this.userService.deleteUser(user.id)
+          .then(() => {
+            this.toastr.success('Recuerda que debes desactivar la cuenta de Firebase Authentication', 'Usuario eliminado de FireStore');
+            this.getUsers();
+          })
+          .catch(error => {
+            this.toastr.error('Error al eliminar el usuario', 'Error');
+            console.error('Error al eliminar el usuario:', error);
+          });
+      }
     }
   
   }
