@@ -1,27 +1,31 @@
-# RegisterApp
+# Aplicación web de registro de usuarios con Angular y Firebase
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
+## Descripción
 
-## Development server
+El proyecto es una aplicación web de registro para almacenar usuarios en distintos documentos de firestore en una colección. Utiliza Firebase Authentication para manejar el inicio de sesión de los usuarios y angular material para el diseño de cada una de las rutas.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+##### Tecnologías Utilizadas
 
-## Code scaffolding
+-
+    | Tecnologías                     |  Versión |
+    |---------------------------------------|-------------|
+    | Angular | 16.2.11          |
+    | Angular Material |16.2.10      |
+    | Angular Cli     | 16.2.8 |
+    | Firebase              | 10.5.0     |
+    | Ngx-Toastr              | 17.0.2  |
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Ejecución
 
-## Build
+- Para ver la versión de desarrollo, clona el repositorio y ejecuta en la terminal
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+    npm install
+```
+- Luego para iniciarlo
+```
+    ng serve
+```
+La aplición estará alojada inicialmente en http://localhost:4200/
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Imagenes de la aplicación
