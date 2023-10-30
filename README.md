@@ -4,6 +4,14 @@
 
 El proyecto es una aplicación web de registro para almacenar usuarios en distintos documentos de firestore en una colección. Utiliza Firebase Authentication para manejar el inicio de sesión de los usuarios y angular material para el diseño de cada una de las rutas.
 
+### Caracteristicas
+  - Inicio de sesión con almacenamiento en Firebase Authenticator (Simple y Google).
+  - Almacenamiento de datos en Firestore (Id , nombre , rut , email , password).
+  - Formularios con validaciones y Tablas Angular material.
+  - Diseño Responsivo.
+  - Alertas informativas para cada acción.
+
+
 ##### Tecnologías Utilizadas
 
 -
@@ -29,3 +37,26 @@ El proyecto es una aplicación web de registro para almacenar usuarios en distin
 La aplición estará alojada inicialmente en http://localhost:4200/
 
 ## Imagenes de la aplicación
+
+<table>
+  <tr>
+    <td><img src="https://github.com/Dieego533/register-app-angular/blob/master/src/assets/images/1.JPG" width="600" /></td>
+    <td><img src="https://github.com/Dieego533/register-app-angular/blob/master/src/assets/images/1res.JPG" width="200" /></td>
+  </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+    <td><img src="https://github.com/Dieego533/register-app-angular/blob/master/src/assets/images/2JPG.JPG" width="600" /></td>
+    <td><img src="https://github.com/Dieego533/register-app-angular/blob/master/src/assets/images/2res.JPG" width="200" /></td>
+  </tr>
+    <tr>
+        <td></td>
+    </tr>
+     <tr>
+    <td><img src="https://github.com/Dieego533/register-app-angular/blob/master/src/assets/images/3.JPG" width="600" /></td>
+    <td><img src="https://github.com/Dieego533/register-app-angular/blob/master/src/assets/images/3res.JPG" width="200" /></td>
+  </tr>
+</table>
+
+
